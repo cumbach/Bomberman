@@ -7,8 +7,10 @@
     // debugger;
     this.game = attributes.game,
     this.pos = attributes.pos,
+    this.sprite = attributes.sprite,
     this.color = Bomb.COLOR,
     this.radius = Bomb.RADIUS
+
 
     // Bomberman.StaticObject.call(this, attributes);
   };
@@ -17,16 +19,21 @@
   Bomb.RADIUS = 23;
 
   Bomb.prototype.draw = function (ctx) {
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
-    ctx.arc(
-      this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
-    );
-    ctx.fill();
+
+    this.sprite.draw(ctx, [80,32], newPos);
+
+    // ctx.fillStyle = this.color;
+    // ctx.beginPath();
+    // ctx.arc(
+    //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
+    // );
+    // ctx.fill();
 
   };
 
   Bomb.prototype.explode = function (ctx) {
+    ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
+
     this.color = 'red';
     //
     // ctx.fillStyle = 'red';

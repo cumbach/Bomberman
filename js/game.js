@@ -13,7 +13,10 @@
   };
 
   Game.prototype.loadImgs = function () {
-    console.log('hi');
+    resources.load('sprites/player.png');
+    resources.load('sprites/items.png');
+
+    // console.log('hi');
   };
 
   // Game.NUM_BARRIERS = 10;
@@ -74,7 +77,7 @@
     });
 
     this.bomber.draw(ctx);
-    this.bomber.sprite.draw(ctx);
+    // this.bomber.sprite.draw(ctx);
   };
   //
   // Game.prototype.moveObjects = function () {

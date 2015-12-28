@@ -15,7 +15,9 @@
     // var timeDelta = time - this.lastTime;
 
     this.game.step();
-    this.game.draw(this.ctx);
+    if (resources.isReady()) {
+      this.game.draw(this.ctx);
+    }
     // this.lastTime = time;
 
     //every call to animate requests causes another call to animate
