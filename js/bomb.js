@@ -7,7 +7,7 @@
     // debugger;
     this.game = attributes.game,
     this.pos = attributes.pos,
-    this.sprite = attributes.sprite,
+    this.sprite = new Bomberman.Sprite({img: 'sprites/items.png', loc: [80,32], size: [60,60]})
     this.color = Bomb.COLOR,
     this.radius = Bomb.RADIUS
 
@@ -20,7 +20,10 @@
 
   Bomb.prototype.draw = function (ctx) {
 
-    this.sprite.draw(ctx, [80,32], newPos);
+    newPos = this.pos.slice(0);
+    newPos[0] -= 23;
+    newPos[1] -= 23;
+    this.sprite.draw(ctx, newPos);
 
     // ctx.fillStyle = this.color;
     // ctx.beginPath();

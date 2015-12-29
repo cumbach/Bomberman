@@ -7,7 +7,7 @@
     this.ctx = canvas.getContext('2d');
     this.xDim = canvas.width;
     this.yDim = canvas.height;
-    this.bomber = new Bomberman.Bomber({ sprite: new Bomberman.Sprite({img: 'sprites/player.png', pos: [80,32], size: [16,16]}), vel: [0, 0], pos: [25, 25], game: this});
+    this.bomber = new Bomberman.Bomber({vel: [0, 0], pos: [25, 25], game: this});
     this.addBarriers();
     this.loadImgs();
   };

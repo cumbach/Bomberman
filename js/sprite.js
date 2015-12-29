@@ -3,7 +3,7 @@
     window.Bomberman = {};
 
   var Sprite = Bomberman.Sprite = function(attributes) {
-    this.pos = attributes.pos;
+    this.loc = attributes.loc;
     this.size = attributes.size;
     // this.speed = speed;
     // this._index = 0;
@@ -12,9 +12,9 @@
     // this.frames = frames;
   }
 
-  Sprite.prototype.draw = function (ctx, loc, pos) {
+  Sprite.prototype.draw = function (ctx, pos) {
     // debugger;
-    ctx.drawImage(resources.get(this.img), loc[0], loc[1], 16,16, pos[0], pos[1], 50, 50);
+    ctx.drawImage(resources.get(this.img), this.loc[0], this.loc[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
   };
 
   Sprite.prototype.something = function () {

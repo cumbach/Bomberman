@@ -10,7 +10,7 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    this.sprite = attributes.sprite
+    this.sprite = new Bomberman.Sprite({img: 'sprites/player.png', loc: [80,32], size: [16,16]})
   };
 
   Bomber.COLOR = "white";
@@ -23,7 +23,7 @@
     newPos = this.pos.slice(0);
     newPos[0] -= 23;
     newPos[1] -= 23;
-    this.sprite.draw(ctx, [80,32], newPos);
+    this.sprite.draw(ctx, newPos);
 
     // this is the code for the old circle bomber
     // ctx.fillStyle = this.color;
@@ -97,7 +97,7 @@
     newPos[1] = Math.floor(newPos[1]/barrierLength) * barrierLength + barrierLength/2;
 
     if (!isTouching) {
-      var bomb = new Bomberman.Bomb({sprite: new Bomberman.Sprite({img: 'sprites/items.png', pos: [80,32], size: [16,16]}), pos: newPos, game: this.game})
+      var bomb = new Bomberman.Bomb({pos: newPos, game: this.game})
       this.bombs.push(bomb);
       this.sprite.something();
 
