@@ -7,7 +7,7 @@
     // debugger;
     this.game = attributes.game,
     this.pos = attributes.pos,
-    this.sprite = new Bomberman.Sprite({img: 'sprites/items.png', loc: [80,32], size: [60,60]})
+    this.sprite = new Bomberman.Sprite({img: 'sprites/mars.png', loc: [398,520], size: [30,30]})
     this.color = Bomb.COLOR,
     this.radius = Bomb.RADIUS
 
@@ -35,9 +35,11 @@
   };
 
   Bomb.prototype.explode = function (ctx) {
-    ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
+    // ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
+    this.sprite = new Bomberman.Sprite({img: 'sprites/mars.png', loc: [278,450], size: [33,33]})
 
-    this.color = 'red';
+    // this.color = 'red';
+
     //
     // ctx.fillStyle = 'red';
     //

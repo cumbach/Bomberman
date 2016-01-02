@@ -12,9 +12,12 @@
     // this.frames = frames;
   }
 
-  Sprite.prototype.draw = function (ctx, pos) {
-    // debugger;
-    ctx.drawImage(resources.get(this.img), this.loc[0], this.loc[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
+  Sprite.prototype.draw = function (ctx, pos, location) {
+    if (typeof location === 'undefined') {
+      ctx.drawImage(resources.get(this.img), this.loc[0], this.loc[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
+    } else {
+      ctx.drawImage(resources.get(this.img), location[0], location[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
+    }
   };
 
   Sprite.prototype.something = function () {

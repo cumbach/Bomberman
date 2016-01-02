@@ -10,12 +10,13 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    this.sprite = new Bomberman.Sprite({img: 'sprites/player.png', loc: [80,32], size: [16,16]})
+    this.location = [73, 125],
+    this.sprite = new Bomberman.Sprite({img: 'sprites/sailor.png', loc: this.location, size: [40,40]})
   };
 
   Bomber.COLOR = "white";
   Bomber.RADIUS = 23;
-
+  var locationHolder = 0;
 
   Bomber.prototype.draw = function (ctx) {
     // mario sprite
@@ -23,7 +24,12 @@
     newPos = this.pos.slice(0);
     newPos[0] -= 23;
     newPos[1] -= 23;
-    this.sprite.draw(ctx, newPos);
+    // this.location[0] = [73 + (this.location[0] % 300)];
+    // this.location = [113, 125];
+    this.sprite.draw(ctx, newPos, this.location);
+    // Bomber.LOCATION[0] += 25;
+    // Bomber.LOCATION[1] += 25;
+
 
     // this is the code for the old circle bomber
     // ctx.fillStyle = this.color;
@@ -61,11 +67,28 @@
       }
     }.bind(this))
 
+    // animate bomber, walk to right
+    if (vel[0] !== 0 || vel[1] !== 0) {
+      this.moveAvatar();
+    } else {
+      this.location = [73, 125];
+    }
+
     if (this.inBoard(vel)) {
       this.pos[0] += vel[0];
       this.pos[1] += vel[1];
     }
 
+  };
+  Bomber.prototype.moveAvatar = function () {
+    locationHolder += 1;
+    if (locationHolder % 20 ===  0) {
+      this.location[0] += 40;
+    }
+    if (locationHolder === 40) {
+      this.location[0] = 113;
+      locationHolder = 0;
+    }
   };
   Bomber.prototype.inBoard = function (vel) {
     if (0 + Bomber.RADIUS < this.pos[0] + vel[0] &&
@@ -103,11 +126,11 @@
 
       setTimeout(function(){
         bomb.explode(this.ctx);
-      }.bind(this), 2300);
+      }.bind(this), 2100);
 
       setTimeout(function(){
         this.bombs.shift();
-      }.bind(this), 2500);
+      }.bind(this), 2700);
 
 
     }

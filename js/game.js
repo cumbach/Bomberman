@@ -15,6 +15,10 @@
   Game.prototype.loadImgs = function () {
     resources.load('sprites/player.png');
     resources.load('sprites/items.png');
+    resources.load('sprites/mars.png');
+    resources.load('sprites/sailor.png');
+    resources.load('sprites/bomberman.png');
+    // resources.load('sprites/BombermanDojo.png');
 
     // console.log('hi');
   };
