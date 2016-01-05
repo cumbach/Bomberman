@@ -4,15 +4,41 @@
   }
 
   var Barrier = Bomberman.Barrier = function (attributes) {
-    attributes.color = Barrier.COLOR;
-    attributes.length = Barrier.LENGTH;
+    this.game = attributes.game,
+    this.pos = attributes.pos,
+    this.color = Barrier.COLOR;
+    this.length = Barrier.LENGTH;
 
-    Bomberman.StaticObject.call(this, attributes);
+    // Bomberman.StaticObject.call(this, attributes);
   };
 
   Barrier.COLOR = "black";
   Barrier.LENGTH = 50;
 
-  Bomberman.Util.inherits(Bomberman.Barrier, Bomberman.StaticObject);
+  Barrier.prototype.draw = function (ctx) {
+    ctx.fillStyle = this.color;
+
+    ctx.fillRect(
+      this.pos[0],
+      this.pos[1],
+      this.length,
+      this.length
+    );
+
+  };
+
+  // Bomberman.Util.inherits(Bomberman.Barrier, Bomberman.StaticObject);
+
+  //
+  // StaticObject.prototype.isCollidedWith = function (otherObject) {
+  //   var distance = Bomberman.Util.distance(this, otherObject);
+  //   var radiusSum = this.radius + otherObject.radius;
+  //   return radiusSum > distance;
+  // };
+  //
+  // StaticObject.prototype.collideWith = function (otherObject) {
+  //   this.game.remove(this);
+  //   otherObject.game.remove(otherObject);
+  // };
 
 })();

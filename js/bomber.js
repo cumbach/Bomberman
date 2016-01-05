@@ -67,7 +67,7 @@
       }
     }.bind(this))
 
-    // animate bomber, walk to right
+    // animate bomber
     if (vel[0] !== 0 || vel[1] !== 0) {
       this.moveAvatar();
     } else {
