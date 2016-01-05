@@ -10,8 +10,8 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    this.location = [73, 125],
-    this.sprite = new Bomberman.Sprite({img: 'sprites/sailor.png', loc: this.location, size: [40,40]})
+    // this.location = [226, 226],
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33]})
   };
 
   Bomber.COLOR = "white";
@@ -68,10 +68,12 @@
     }.bind(this))
 
     // animate bomber
-    if (vel[0] !== 0 || vel[1] !== 0) {
-      this.moveAvatar();
+    if (vel[0] !== 0 || vel[1] > 0) {
+      this.moveAvatarDown();
+    } else if (vel[1] < 0){
+      this.moveAvatarUp();
     } else {
-      this.location = [73, 125];
+      this.location = [228, 3];
     }
 
     if (this.inBoard(vel)) {
@@ -80,14 +82,25 @@
     }
 
   };
-  Bomber.prototype.moveAvatar = function () {
+  Bomber.prototype.moveAvatarUp = function () {
+    locationHolder += 1;
+    this.location[0] = 296;
+    if (locationHolder % 20 ===  0) {
+      this.location[0] += 25;
+    }
+    if (locationHolder === 60) {
+      this.location[0] = 296;
+      locationHolder = 20;
+    }
+  };
+  Bomber.prototype.moveAvatarDown = function () {
     locationHolder += 1;
     if (locationHolder % 20 ===  0) {
-      this.location[0] += 40;
+      this.location[0] += 25;
     }
-    if (locationHolder === 40) {
-      this.location[0] = 113;
-      locationHolder = 0;
+    if (locationHolder === 60) {
+      this.location[0] = 251;
+      locationHolder = 20;
     }
   };
   Bomber.prototype.inBoard = function (vel) {

@@ -7,7 +7,7 @@
     // debugger;
     this.game = attributes.game,
     this.pos = attributes.pos,
-    this.sprite = new Bomberman.Sprite({img: 'sprites/mars.png', loc: [398,520], size: [30,30]})
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [558,1], size: [25,25]})
     this.color = Bomb.COLOR,
     this.radius = Bomb.RADIUS
 
