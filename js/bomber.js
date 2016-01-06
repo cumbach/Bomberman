@@ -10,13 +10,15 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    // this.location = [226, 226],
+    this.location = [228, 3],
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33]})
   };
 
   Bomber.COLOR = "white";
   Bomber.RADIUS = 23;
   var locationHolder = 0;
+  var movingVert = false;
+  var movingHor = false;
 
   Bomber.prototype.draw = function (ctx) {
     // mario sprite
@@ -68,12 +70,16 @@
     }.bind(this))
 
     // animate bomber
-    if (vel[0] !== 0 || vel[1] > 0) {
+    if (vel[1] > 0) {
       this.moveAvatarDown();
     } else if (vel[1] < 0){
       this.moveAvatarUp();
+    } else if (vel[0] < 0) {
+      this.moveAvatarLeft();
+    } else if (vel[0] > 0) {
+      this.moveAvatarRight();
     } else {
-      this.location = [228, 3];
+      // this.location = [228, 3];
     }
 
     if (this.inBoard(vel)) {
@@ -82,25 +88,70 @@
     }
 
   };
-  Bomber.prototype.moveAvatarUp = function () {
+  Bomber.prototype.moveAvatarLeft = function () {
+
+    if (movingHor != "left" || movingVert) {
+      this.location[0] = 395;
+      movingHor = "left";
+      movingVert = false;
+    }
+
     locationHolder += 1;
-    this.location[0] = 296;
-    if (locationHolder % 20 ===  0) {
+    if (locationHolder % 15 ===  0) {
       this.location[0] += 25;
     }
-    if (locationHolder === 60) {
-      this.location[0] = 296;
-      locationHolder = 20;
+    if (locationHolder === 45) {
+      this.location[0] = 395;
+      locationHolder = 15;
+    }
+  };
+  Bomber.prototype.moveAvatarRight = function () {
+    if (movingHor != "right" || movingVert) {
+      movingHor = "right";
+      this.location[0] = 467;
+      locationHolder = 15;
+      movingVert = false;
+    }
+
+    locationHolder += 1;
+    if (locationHolder % 15 ===  0) {
+      this.location[0] += 25;
+    }
+    if (locationHolder === 45) {
+      this.location[0] = 467;
+      locationHolder = 15;
+    }
+  };
+  Bomber.prototype.moveAvatarUp = function () {
+    if (movingVert != "up" || movingHor) {
+      this.location[0] = 325;
+      movingVert = "up";
+      movingHor = false;
+    }
+
+    locationHolder += 1;
+    if (locationHolder % 15 ===  0) {
+      this.location[0] += 25;
+    }
+    if (locationHolder === 45) {
+      this.location[0] = 325;
+      locationHolder = 15;
     }
   };
   Bomber.prototype.moveAvatarDown = function () {
+    if (movingVert != "down" || movingHor) {
+      movingVert = "down";
+      movingHor = false;
+      this.location[0] = 228;
+    }
+
     locationHolder += 1;
-    if (locationHolder % 20 ===  0) {
+    if (locationHolder % 15 ===  0) {
       this.location[0] += 25;
     }
-    if (locationHolder === 60) {
+    if (locationHolder === 45) {
       this.location[0] = 251;
-      locationHolder = 20;
+      locationHolder = 15;
     }
   };
   Bomber.prototype.inBoard = function (vel) {
@@ -135,7 +186,7 @@
     if (!isTouching) {
       var bomb = new Bomberman.Bomb({pos: newPos, game: this.game})
       this.bombs.push(bomb);
-      this.sprite.something();
+      // this.sprite.something();
 
       setTimeout(function(){
         bomb.explode(this.ctx);

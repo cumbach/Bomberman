@@ -36,7 +36,7 @@
 
   Bomb.prototype.explode = function (ctx) {
     // ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
-    this.sprite = new Bomberman.Sprite({img: 'sprites/mars.png', loc: [278,450], size: [33,33]})
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [604,1], size: [25,25]})
 
     // this.color = 'red';
 

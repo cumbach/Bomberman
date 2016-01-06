@@ -20,16 +20,6 @@
     }
   };
 
-  Sprite.prototype.something = function () {
-    console.log(this.pos);
-    console.log(this.size);
-    // console.log(this.speed);
-    // console.log(this._index);
-    console.log(this.img);
-    // console.log(this.once);
-    // console.log(this.frames);
-  };
-
   // Sprite.prototype.update = function(dt, gameTime) {
   //   if (gameTime && gameTime == this.lastUpdated) return;
   //   this._index += this.speed*dt;
