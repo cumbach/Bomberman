@@ -10,15 +10,14 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    this.location = [228, 3],
+    this.location = [228, 4],
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33]})
   };
 
   Bomber.COLOR = "white";
   Bomber.RADIUS = 23;
   var locationHolder = 0;
-  var movingVert = false;
-  var movingHor = false;
+  var movingDir = "down";
 
   Bomber.prototype.draw = function (ctx) {
     // mario sprite
@@ -69,6 +68,16 @@
       }
     }.bind(this))
 
+    var blocked = false;
+    this.game.blocks.forEach(function(block){
+      if (this.pos[0] + this.radius + vel[0] > block.pos[0] &&
+          this.pos[0] - this.radius + vel[0] < block.pos[0] + block.length &&
+          this.pos[1] + this.radius + vel[1] > block.pos[1] &&
+          this.pos[1] - this.radius + vel[1] < block.pos[1] + block.length) {
+        blocked = true;
+      }
+    }.bind(this))
+
     // animate bomber
     if (vel[1] > 0) {
       this.moveAvatarDown();
@@ -82,7 +91,7 @@
       // this.location = [228, 3];
     }
 
-    if (this.inBoard(vel)) {
+    if (this.inBoard(vel) && !blocked) {
       this.pos[0] += vel[0];
       this.pos[1] += vel[1];
     }
@@ -90,10 +99,9 @@
   };
   Bomber.prototype.moveAvatarLeft = function () {
 
-    if (movingHor != "left" || movingVert) {
+    if (movingDir != "left") {
       this.location[0] = 395;
-      movingHor = "left";
-      movingVert = false;
+      movingDir = "left";
     }
 
     locationHolder += 1;
@@ -106,11 +114,10 @@
     }
   };
   Bomber.prototype.moveAvatarRight = function () {
-    if (movingHor != "right" || movingVert) {
-      movingHor = "right";
+    if (movingDir != "right") {
+      movingDir = "right";
       this.location[0] = 467;
       locationHolder = 15;
-      movingVert = false;
     }
 
     locationHolder += 1;
@@ -123,10 +130,9 @@
     }
   };
   Bomber.prototype.moveAvatarUp = function () {
-    if (movingVert != "up" || movingHor) {
+    if (movingDir != "up") {
       this.location[0] = 325;
-      movingVert = "up";
-      movingHor = false;
+      movingDir = "up";
     }
 
     locationHolder += 1;
@@ -139,9 +145,8 @@
     }
   };
   Bomber.prototype.moveAvatarDown = function () {
-    if (movingVert != "down" || movingHor) {
-      movingVert = "down";
-      movingHor = false;
+    if (movingDir != "down") {
+      movingDir = "down";
       this.location[0] = 228;
     }
 

@@ -8,6 +8,7 @@
     this.xDim = canvas.width;
     this.yDim = canvas.height;
     this.bomber = new Bomberman.Bomber({vel: [0, 0], pos: [25, 25], game: this});
+    this.addBlocks();
     this.addBarriers();
     this.loadImgs();
   };
@@ -31,6 +32,31 @@
   //     game: this
   //   });
   // };
+  Game.prototype.addBlocks = function() {
+    this.blocks = [];
+    var pos;
+    var block;
+
+    // barrier = new Bomberman.Barrier({pos: [150,50], game: this});
+    // this.barriers.push(barrier);
+
+    var blockLength = Bomberman.Barrier.LENGTH;
+
+    for (var x = 0; x < this.xDim; x += blockLength) {
+      for (var y = 0; y < this.yDim; y += blockLength) {
+        if (Math.random() < 0.13 && (x > 3*blockLength || y > blockLength)) {
+          pos = [x, y];
+          block = new Bomberman.Block({ pos: pos, game: this });
+          this.blocks.push(block);
+
+        }
+        // if (x % (barrierLength * 2) === 0 && y % (barrierLength * 2) === 0) {
+          // debugger;
+        // }
+      }
+    }
+
+  };
   Game.prototype.addBarriers = function() {
     this.barriers = [];
     var pos;
@@ -71,9 +97,14 @@
 
     ctx.fillRect(0, 0, this.xDim,this.yDim);
 
+    this.blocks.forEach(function (block) {
+      block.draw(ctx);
+    });
+
     this.barriers.forEach(function (barrier) {
       barrier.draw(ctx);
     });
+
 
     this.bomber.bombs.forEach(function(bomb){
       bomb.draw(ctx);
