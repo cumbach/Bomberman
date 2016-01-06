@@ -8,17 +8,22 @@
     // this.speed = speed;
     // this._index = 0;
     this.img = attributes.img;
+    attributes.area ? this.area = attributes.area : this.area = [50,50]
     // this.once = once;
     // this.frames = frames;
   }
 
   Sprite.prototype.draw = function (ctx, pos, location) {
     if (typeof location === 'undefined') {
-      ctx.drawImage(resources.get(this.img), this.loc[0], this.loc[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
+      ctx.drawImage(resources.get(this.img), this.loc[0], this.loc[1], this.size[0],this.size[1], pos[0], pos[1], this.area[0], this.area[1]);
     } else {
-      ctx.drawImage(resources.get(this.img), location[0], location[1], this.size[0],this.size[1], pos[0], pos[1], 50, 50);
+      ctx.drawImage(resources.get(this.img), location[0], location[1], this.size[0],this.size[1], pos[0], pos[1], this.area[0], this.area[1]);
     }
   };
+
+  // Sprite.prototype.drawFlames = function (ctx, pos, location, area) {
+  //   ctx.drawImage(resources.get(this.img), location[0], location[1], this.size[0],this.size[1], pos[0], pos[1], area[0], area[1]);
+  // };
 
   // Sprite.prototype.update = function(dt, gameTime) {
   //   if (gameTime && gameTime == this.lastUpdated) return;

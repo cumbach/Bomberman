@@ -18,6 +18,7 @@
     resources.load('sprites/mars.png');
     resources.load('sprites/sailor.png');
     resources.load('sprites/bomberman.png');
+    resources.load('sprites/vertflames.png');
     // resources.load('sprites/BombermanDojo.png');
 
     // console.log('hi');

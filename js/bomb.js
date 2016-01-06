@@ -9,7 +9,8 @@
     this.pos = attributes.pos,
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [558,1], size: [25,25]})
     this.color = Bomb.COLOR,
-    this.radius = Bomb.RADIUS
+    this.radius = Bomb.RADIUS,
+    this.exploding = false
 
 
     // Bomberman.StaticObject.call(this, attributes);
@@ -25,6 +26,10 @@
     newPos[1] -= 23;
     this.sprite.draw(ctx, newPos);
 
+    if (this.exploding) {
+      this.drawFlames(ctx);
+    }
+
     // ctx.fillStyle = this.color;
     // ctx.beginPath();
     // ctx.arc(
@@ -35,22 +40,28 @@
   };
 
   Bomb.prototype.explode = function (ctx) {
+    this.exploding = true;
     // ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
-    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [604,1], size: [25,25]})
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [533,95], size: [28,24], area: [45,45]})
 
-    // this.color = 'red';
-
-    //
-    // ctx.fillStyle = 'red';
-    //
-    // ctx.fillRect(
-    //   this.pos[0],
-    //   this.pos[1],
-    //   300,
-    //   600
-    // );
+    // up = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [50,50], size: [28,24], area: [45,45]})
+    // up.draw(ctx, [this.pos[0], this.pos[1]]);
     // logic for making flames come out?
   };
+  Bomb.prototype.drawFlames = function(ctx) {
+    up = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,0], size: [28,24], area: [45,45]})
+    up.draw(ctx, [newPos[0]+4, newPos[1]-44]);
+
+    down = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,48], size: [28,24], area: [45,45]})
+    down.draw(ctx, [newPos[0]+4, newPos[1]+44]);
+
+    left = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [583,70], size: [28,24], area: [45,45]})
+    left.draw(ctx, [newPos[0]-42, newPos[1]]);
+
+    right = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [627,70], size: [28,24], area: [45,45]})
+    right.draw(ctx, [newPos[0]+44, newPos[1]]);
+
+  }
 
   // Bomberman.Util.inherits(Bomberman.Bomb, Bomberman.StaticObject);
 
