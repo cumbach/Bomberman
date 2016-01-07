@@ -10,7 +10,11 @@
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [558,1], size: [25,25]})
     this.color = Bomb.COLOR,
     this.radius = Bomb.RADIUS,
-    this.exploding = false
+    this.exploding = false,
+    this.upFlame = true,
+    this.downFlame = true,
+    this.rightFlame = true,
+    this.leftFlame = true
 
 
     // Bomberman.StaticObject.call(this, attributes);
@@ -44,22 +48,86 @@
     // ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [533,95], size: [28,24], area: [45,45]})
 
-    // up = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [50,50], size: [28,24], area: [45,45]})
-    // up.draw(ctx, [this.pos[0], this.pos[1]]);
-    // logic for making flames come out?
+    this.game.barriers.forEach(function(barrier){
+      if (this.pos[0] - barrier.length > barrier.pos[0] &&
+          this.pos[0] - barrier.length < barrier.pos[0] + barrier.length &&
+          this.pos[1] > barrier.pos[1] &&
+          this.pos[1] < barrier.pos[1] + barrier.length) {
+        this.leftFlame = false;
+      }
+
+      if (this.pos[0] + barrier.length > barrier.pos[0] &&
+          this.pos[0] + barrier.length < barrier.pos[0] + barrier.length &&
+          this.pos[1] > barrier.pos[1] &&
+          this.pos[1] < barrier.pos[1] + barrier.length) {
+        this.rightFlame = false;
+      }
+
+      if (this.pos[0] > barrier.pos[0] &&
+          this.pos[0] < barrier.pos[0] + barrier.length &&
+          this.pos[1] - barrier.length > barrier.pos[1] &&
+          this.pos[1] - barrier.length < barrier.pos[1] + barrier.length) {
+        this.upFlame = false;
+      }
+
+      if (this.pos[0] > barrier.pos[0] &&
+          this.pos[0] < barrier.pos[0] + barrier.length &&
+          this.pos[1] + barrier.length > barrier.pos[1] &&
+          this.pos[1] + barrier.length < barrier.pos[1] + barrier.length) {
+        this.downFlame = false;
+      }
+    }.bind(this));
+
+
+
+    this.game.blocks.forEach(function(block){
+      if (this.pos[0] - block.length > block.pos[0] &&
+          this.pos[0] - block.length < block.pos[0] + block.length &&
+          this.pos[1] > block.pos[1] &&
+          this.pos[1] < block.pos[1] + block.length) {
+        this.leftFlame = false;
+      }
+
+      if (this.pos[0] + block.length > block.pos[0] &&
+          this.pos[0] + block.length < block.pos[0] + block.length &&
+          this.pos[1] > block.pos[1] &&
+          this.pos[1] < block.pos[1] + block.length) {
+        this.rightFlame = false;
+      }
+
+      if (this.pos[0] > block.pos[0] &&
+          this.pos[0] < block.pos[0] + block.length &&
+          this.pos[1] - block.length > block.pos[1] &&
+          this.pos[1] - block.length < block.pos[1] + block.length) {
+        this.upFlame = false;
+      }
+
+      if (this.pos[0] > block.pos[0] &&
+          this.pos[0] < block.pos[0] + block.length &&
+          this.pos[1] + block.length > block.pos[1] &&
+          this.pos[1] + block.length < block.pos[1] + block.length) {
+        this.downFlame = false;
+      }
+    }.bind(this));
+
   };
   Bomb.prototype.drawFlames = function(ctx) {
-    up = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,0], size: [28,24], area: [45,45]})
-    up.draw(ctx, [newPos[0]+4, newPos[1]-44]);
-
-    down = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,48], size: [28,24], area: [45,45]})
-    down.draw(ctx, [newPos[0]+4, newPos[1]+44]);
-
-    left = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [583,70], size: [28,24], area: [45,45]})
-    left.draw(ctx, [newPos[0]-42, newPos[1]]);
-
-    right = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [627,70], size: [28,24], area: [45,45]})
-    right.draw(ctx, [newPos[0]+44, newPos[1]]);
+    if (this.upFlame) {
+      this.upFlame = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,0], size: [28,24], area: [45,45]})
+      this.upFlame.draw(ctx, [newPos[0]+4, newPos[1]-44]);
+    }
+    if (this.downFlame) {
+      this.downFlame = new Bomberman.Sprite({img: 'sprites/vertflames.png', loc: [0,48], size: [28,24], area: [45,45]})
+      this.downFlame.draw(ctx, [newPos[0]+4, newPos[1]+44]);
+    }
+    if (this.leftFlame) {
+      this.leftFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [583,70], size: [28,24], area: [45,45]})
+      this.leftFlame.draw(ctx, [newPos[0]-42, newPos[1]]);
+    }
+    if (this.rightFlame) {
+      this.rightFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [627,70], size: [28,24], area: [45,45]})
+      this.rightFlame.draw(ctx, [newPos[0]+44, newPos[1]]);
+    }
 
   }
 
