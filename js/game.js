@@ -10,6 +10,7 @@
     this.bomber = new Bomberman.Bomber({vel: [0, 0], pos: [25, 25], game: this});
     this.addBlocks();
     this.addBarriers();
+    this.addEnemies();
     this.loadImgs();
   };
 
@@ -19,6 +20,8 @@
     resources.load('sprites/sailor.png');
     resources.load('sprites/bomberman.png');
     resources.load('sprites/vertflames.png');
+    resources.load('sprites/pinkenemy.png');
+
     // resources.load('sprites/BombermanDojo.png');
 
     // console.log('hi');
@@ -33,6 +36,36 @@
   //     game: this
   //   });
   // };
+  Game.prototype.addEnemies = function() {
+    this.enemies = [];
+    var pos;
+    var block;
+    var enemyCount = 50;
+
+    // barrier = new Bomberman.Barrier({pos: [150,50], game: this});
+    // this.barriers.push(barrier);
+
+    barrierPositions = this.barriers.map(function(barrier){
+      return barrier.pos.toString();
+    });
+    blockPositions = this.blocks.map(function(block){
+      return block.pos.toString();
+    })
+
+    var blockLength = Bomberman.Barrier.LENGTH;
+
+    for (var x = 0; x < this.xDim; x += blockLength) {
+      for (var y = 0; y < this.yDim; y += blockLength) {
+        if (this.enemies.length < enemyCount && Math.random() < 0.09 && (x > 3*blockLength || y > 3*blockLength)) {
+          pos = [x, y];
+          if (barrierPositions.indexOf(pos.toString()) === -1 && blockPositions.indexOf(pos.toString()) === -1) {
+            enemy = new Bomberman.Enemy({ pos: pos, game: this });
+            this.enemies.push(enemy);
+          }
+        }
+      }
+    }
+  };
   Game.prototype.addBlocks = function() {
     this.blocks = [];
     var pos;
@@ -45,7 +78,7 @@
 
     for (var x = 0; x < this.xDim; x += blockLength) {
       for (var y = 0; y < this.yDim; y += blockLength) {
-        if (Math.random() < 0.2 && (x > 3*blockLength || y > blockLength)) {
+        if (Math.random() < 0.14 && (x > 3*blockLength || y > blockLength)) {
           pos = [x, y];
           block = new Bomberman.Block({ pos: pos, game: this });
           this.blocks.push(block);
@@ -111,6 +144,10 @@
       bomb.draw(ctx);
     });
 
+    this.enemies.forEach(function(enemy){
+      enemy.draw(ctx);
+    });
+
     this.bomber.draw(ctx);
     // this.bomber.sprite.draw(ctx);
   };
@@ -140,6 +177,9 @@
     this.handleInput();
     // this.moveObjects();
     // this.checkCollisions();
+    // this.enemies.forEach(function(enemy){
+    //   enemy.move();
+    // })
   };
   Game.prototype.handleInput = function (dt) {
     var bomber = this.bomber;

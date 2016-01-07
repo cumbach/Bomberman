@@ -131,16 +131,14 @@
       this.downFlame.draw(ctx, [newPos[0]+4, newPos[1]+44]);
     }
     if (this.leftFlame) {
-      this.leftFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [583,70], size: [28,24], area: [45,45]})
+      this.leftFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [583,71], size: [28,24], area: [45,45]})
       this.leftFlame.draw(ctx, [newPos[0]-42, newPos[1]]);
     }
     if (this.rightFlame) {
-      this.rightFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [627,70], size: [28,24], area: [45,45]})
+      this.rightFlame = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [627,71], size: [28,24], area: [45,45]})
       this.rightFlame.draw(ctx, [newPos[0]+44, newPos[1]]);
     }
 
   }
-
-  // Bomberman.Util.inherits(Bomberman.Bomb, Bomberman.StaticObject);
 
 })();

@@ -10,8 +10,8 @@
     this.color = Bomber.COLOR,
     this.bombs = [],
     this.ctx = attributes.game.ctx,
-    this.location = [228, 4],
-    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33]})
+    this.location = [228, 3],
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33], area: [50,46]})
   };
 
   Bomber.COLOR = "white";
@@ -78,6 +78,22 @@
       }
     }.bind(this))
 
+    this.game.bomber.bombs.forEach(function(bomb){
+      if (this.pos[0] + this.radius + vel[0] > bomb.pos[0] - bomb.radius &&
+          this.pos[0] - this.radius + vel[0] < bomb.pos[0] + bomb.radius &&
+          this.pos[1] + this.radius + vel[1] > bomb.pos[1] - bomb.radius &&
+          this.pos[1] - this.radius + vel[1] < bomb.pos[1] + bomb.radius) {
+        if (this.pos[0] + this.radius > bomb.pos[0] - bomb.radius &&
+            this.pos[0] - this.radius < bomb.pos[0] + bomb.radius &&
+            this.pos[1] + this.radius > bomb.pos[1] - bomb.radius &&
+            this.pos[1] - this.radius < bomb.pos[1] + bomb.radius) {
+          // blocked = false;
+        } else {
+          blocked = true;
+        }
+      }
+    }.bind(this))
+
     // animate bomber
     if (vel[1] > 0) {
       this.moveAvatarDown();
@@ -100,7 +116,7 @@
   Bomber.prototype.moveAvatarLeft = function () {
 
     if (movingDir != "left") {
-      this.location[0] = 395;
+      this.location[0] = 396;
       movingDir = "left";
     }
 
@@ -109,7 +125,7 @@
       this.location[0] += 25;
     }
     if (locationHolder === 45) {
-      this.location[0] = 395;
+      this.location[0] = 396;
       locationHolder = 15;
     }
   };
