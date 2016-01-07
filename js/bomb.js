@@ -116,26 +116,9 @@
     }.bind(this));
 
 
-    // NEED TO FIX THIS, SUPERINDEX CHANGES IF MULTIPLE BOMBS PLACED, CANT SPLICE USING SETTIMEOUT
-
-    // lights blocks on fire
-    // for (var i = 0; i < superIndex.length; i++) {
-    //   this.game.blocks[superIndex[superIndex.length - 1 - i]].fireBlockOne();
-    // }
-    //
-    // setTimeout(function(){
-    //   for (var i = 0; i < superIndex.length; i++) {
-    //     this.game.blocks[superIndex[superIndex.length - 1 - i]].fireBlockTwo();
-    //   }
-    // }.bind(this), 1200);
-
-    // splices out blocks starting from the back of the superIndex, ie end of blocks
-    // setTimeout(function(){
-    //   for (var i = 0; i < superIndex.length; i++) {
-    //     this.game.blocks.splice(superIndex[superIndex.length - 1 - i],1)
-    //   }
-    // }.bind(this), 2500);
-
+    for (var i = 0; i < superIndex.length; i++) {
+      this.game.blocks[superIndex[superIndex.length - 1 - i]].destroyBlock();
+    }
 
   };
   Bomb.prototype.drawFlames = function(ctx) {

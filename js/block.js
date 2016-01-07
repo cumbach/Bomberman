@@ -30,13 +30,19 @@
 
   };
 
-  Block.prototype.fireBlockOne = function () {
+  Block.prototype.destroyBlock = function () {
     this.location = [303, 106];
+
+    setTimeout(function(){
+      this.location = [327, 106];
+    }.bind(this), 300);
+
+    setTimeout(function(){
+      this.game.blocks.splice(this.game.blocks.indexOf(this),1)
+    }.bind(this), 600);
   };
 
-  Block.prototype.fireBlockTwo = function () {
-    this.location = [327, 106];
-  };
+
 
 
 

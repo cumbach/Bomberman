@@ -195,7 +195,7 @@
 
       setTimeout(function(){
         bomb.explode(this.ctx);
-      }.bind(this), 100);
+      }.bind(this), 2200);
 
       setTimeout(function(){
         this.bombs.shift();
