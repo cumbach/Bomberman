@@ -46,7 +46,7 @@
   Bomb.prototype.explode = function (ctx) {
     this.exploding = true;
     // ctx.drawImage(resources.get(this.sprite.img), 80, 32, 16,16, this.pos[0]-23, this.pos[1]-23, 50, 50);
-    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [533,95], size: [28,24], area: [45,45]})
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [533,95], size: [28,24], area: [46,45]})
 
     this.game.barriers.forEach(function(barrier){
       if (this.pos[0] - barrier.length > barrier.pos[0] &&
@@ -78,14 +78,15 @@
       }
     }.bind(this));
 
-
-
+    // superIndex used for splicing blocks from array starting at the back
+    var superIndex = [];
     this.game.blocks.forEach(function(block){
       if (this.pos[0] - block.length > block.pos[0] &&
           this.pos[0] - block.length < block.pos[0] + block.length &&
           this.pos[1] > block.pos[1] &&
           this.pos[1] < block.pos[1] + block.length) {
         this.leftFlame = false;
+        superIndex.push(this.game.blocks.indexOf(block));
       }
 
       if (this.pos[0] + block.length > block.pos[0] &&
@@ -93,6 +94,7 @@
           this.pos[1] > block.pos[1] &&
           this.pos[1] < block.pos[1] + block.length) {
         this.rightFlame = false;
+        superIndex.push(this.game.blocks.indexOf(block));
       }
 
       if (this.pos[0] > block.pos[0] &&
@@ -100,15 +102,40 @@
           this.pos[1] - block.length > block.pos[1] &&
           this.pos[1] - block.length < block.pos[1] + block.length) {
         this.upFlame = false;
+        superIndex.push(this.game.blocks.indexOf(block));
       }
+
 
       if (this.pos[0] > block.pos[0] &&
           this.pos[0] < block.pos[0] + block.length &&
           this.pos[1] + block.length > block.pos[1] &&
           this.pos[1] + block.length < block.pos[1] + block.length) {
         this.downFlame = false;
+        superIndex.push(this.game.blocks.indexOf(block));
       }
     }.bind(this));
+
+
+    // NEED TO FIX THIS, SUPERINDEX CHANGES IF MULTIPLE BOMBS PLACED, CANT SPLICE USING SETTIMEOUT
+
+    // lights blocks on fire
+    // for (var i = 0; i < superIndex.length; i++) {
+    //   this.game.blocks[superIndex[superIndex.length - 1 - i]].fireBlockOne();
+    // }
+    //
+    // setTimeout(function(){
+    //   for (var i = 0; i < superIndex.length; i++) {
+    //     this.game.blocks[superIndex[superIndex.length - 1 - i]].fireBlockTwo();
+    //   }
+    // }.bind(this), 1200);
+
+    // splices out blocks starting from the back of the superIndex, ie end of blocks
+    // setTimeout(function(){
+    //   for (var i = 0; i < superIndex.length; i++) {
+    //     this.game.blocks.splice(superIndex[superIndex.length - 1 - i],1)
+    //   }
+    // }.bind(this), 2500);
+
 
   };
   Bomb.prototype.drawFlames = function(ctx) {

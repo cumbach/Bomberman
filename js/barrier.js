@@ -8,6 +8,8 @@
     this.pos = attributes.pos,
     this.color = Barrier.COLOR;
     this.length = Barrier.LENGTH;
+    this.location = [254, 101];
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [23,22]})
 
     // Bomberman.StaticObject.call(this, attributes);
   };
@@ -16,14 +18,16 @@
   Barrier.LENGTH = 50;
 
   Barrier.prototype.draw = function (ctx) {
-    ctx.fillStyle = this.color;
 
-    ctx.fillRect(
-      this.pos[0],
-      this.pos[1],
-      this.length,
-      this.length
-    );
+    this.sprite.draw(ctx, this.pos, this.location);
+    // ctx.fillStyle = this.color;
+    //
+    // ctx.fillRect(
+    //   this.pos[0],
+    //   this.pos[1],
+    //   this.length,
+    //   this.length
+    // );
 
   };
 

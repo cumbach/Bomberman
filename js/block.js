@@ -8,6 +8,8 @@
     this.pos = attributes.pos,
     this.color = Block.COLOR;
     this.length = Block.LENGTH;
+    this.location = [279, 102];
+    this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [23,22]})
 
     // Bomberman.StaticObject.call(this, attributes);
   };
@@ -16,16 +18,27 @@
   Block.LENGTH = 50;
 
   Block.prototype.draw = function (ctx) {
-    ctx.fillStyle = this.color;
-
-    ctx.fillRect(
-      this.pos[0],
-      this.pos[1],
-      this.length,
-      this.length
-    );
+    this.sprite.draw(ctx, this.pos, this.location);
+    // ctx.fillStyle = this.color;
+    //
+    // ctx.fillRect(
+    //   this.pos[0],
+    //   this.pos[1],
+    //   this.length,
+    //   this.length
+    // );
 
   };
+
+  Block.prototype.fireBlockOne = function () {
+    this.location = [303, 106];
+  };
+
+  Block.prototype.fireBlockTwo = function () {
+    this.location = [327, 106];
+  };
+
+
 
   // Bomberman.Util.inherits(Bomberman.Block, Bomberman.StaticObject);
 

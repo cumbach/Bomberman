@@ -45,7 +45,7 @@
 
     for (var x = 0; x < this.xDim; x += blockLength) {
       for (var y = 0; y < this.yDim; y += blockLength) {
-        if (Math.random() < 0.13 && (x > 3*blockLength || y > blockLength)) {
+        if (Math.random() < 0.2 && (x > 3*blockLength || y > blockLength)) {
           pos = [x, y];
           block = new Bomberman.Block({ pos: pos, game: this });
           this.blocks.push(block);
@@ -94,7 +94,7 @@
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.xDim, this.yDim);
 
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "rgba(205, 192, 176, 1)";
 
     ctx.fillRect(0, 0, this.xDim,this.yDim);
 
