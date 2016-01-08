@@ -12,6 +12,7 @@
     this.addBarriers();
     this.addEnemies();
     this.loadImgs();
+    this.playing = false;
   };
 
   Game.prototype.loadImgs = function () {

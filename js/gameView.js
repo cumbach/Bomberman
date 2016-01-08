@@ -7,6 +7,10 @@
     this.game = new Bomberman.Game (canvas);
     this.ctx = canvas.getContext('2d');
   };
+  GameView.prototype.newGame = function (canvas) {
+    this.game = new Bomberman.Game (canvas);
+    requestAnimationFrame(this.animate.bind(this));
+  };
 
   GameView.prototype.start = function (canvas) {
     requestAnimationFrame(this.animate.bind(this));
@@ -21,8 +25,11 @@
     // this.lastTime = time;
 
     //every call to animate requests causes another call to animate
-    if (this.game.bomber.alive){
+    if (this.game.bomber.alive && this.game.playing){
       requestAnimationFrame(this.animate.bind(this));
+    } else if (!this.game.bomber.alive){
+      var canvasEl = document.getElementsByTagName("canvas")[0];
+      this.newGame(canvasEl);
     }
   };
 
