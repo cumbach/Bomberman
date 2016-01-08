@@ -22,6 +22,7 @@
 
   Bomb.COLOR = "black";
   Bomb.RADIUS = 23;
+  var bomberPos;
 
   Bomb.prototype.draw = function (ctx) {
 
@@ -146,8 +147,45 @@
           this.pos[1] + enemy.length < enemy.pos[1] + enemy.length) {
         enemy.destroyEnemy();
       }
-
     }.bind(this));
+
+
+    bomberPos = this.game.bomber.pos.slice(0);
+    bomberPos[0] -= 23;
+    bomberPos[1] -= 23;
+    if (this.pos[0] - this.game.bomber.length > bomberPos[0] &&
+        this.pos[0] - this.game.bomber.length < bomberPos[0] + this.game.bomber.length &&
+        this.pos[1] > bomberPos[1] &&
+        this.pos[1] < bomberPos[1] + this.game.bomber.length) {
+      this.game.bomber.destroyBomber();
+    }
+
+    if (this.pos[0] + this.game.bomber.length > bomberPos[0] &&
+        this.pos[0] + this.game.bomber.length < bomberPos[0] + this.game.bomber.length &&
+        this.pos[1] > bomberPos[1] &&
+        this.pos[1] < bomberPos[1] + this.game.bomber.length) {
+      this.game.bomber.destroyBomber();
+    }
+
+    if (this.pos[0] > bomberPos[0] &&
+        this.pos[0] < bomberPos[0] + this.game.bomber.length &&
+        this.pos[1] - this.game.bomber.length > bomberPos[1] &&
+        this.pos[1] - this.game.bomber.length < bomberPos[1] + this.game.bomber.length) {
+      this.game.bomber.destroyBomber();
+    }
+    if (this.pos[0] > bomberPos[0] &&
+        this.pos[0] < bomberPos[0] + this.game.bomber.length &&
+        this.pos[1] + this.game.bomber.length > bomberPos[1] &&
+        this.pos[1] + this.game.bomber.length < bomberPos[1] + this.game.bomber.length) {
+      this.game.bomber.destroyBomber();
+    }
+    if (this.pos[0] > bomberPos[0] &&
+        this.pos[0] < bomberPos[0] + this.game.bomber.length &&
+        this.pos[1] > bomberPos[1] &&
+        this.pos[1] < bomberPos[1] + this.game.bomber.length) {
+      this.game.bomber.destroyBomber();
+    }
+
 
   };
   Bomb.prototype.drawFlames = function(ctx) {

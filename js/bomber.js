@@ -7,8 +7,10 @@
     this.game = attributes.game,
     this.pos = attributes.pos,
     this.radius = Bomber.RADIUS,
+    this.length = 50,
     this.color = Bomber.COLOR,
     this.bombs = [],
+    this.alive = true,
     this.ctx = attributes.game.ctx,
     this.location = [228, 3],
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33], area: [50,46]})
@@ -39,6 +41,15 @@
     //   this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, true
     // );
     // ctx.fill();
+
+  };
+  Bomber.prototype.destroyBomber = function () {
+
+    this.location = [351, 40];
+
+    setTimeout(function(){
+      this.alive = false;
+    }.bind(this), 1000);
 
   };
 

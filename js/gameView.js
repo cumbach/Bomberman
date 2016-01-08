@@ -21,7 +21,9 @@
     // this.lastTime = time;
 
     //every call to animate requests causes another call to animate
-    requestAnimationFrame(this.animate.bind(this));
+    if (this.game.bomber.alive){
+      requestAnimationFrame(this.animate.bind(this));
+    }
   };
 
 
