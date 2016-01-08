@@ -115,10 +115,39 @@
       }
     }.bind(this));
 
-
     for (var i = 0; i < superIndex.length; i++) {
       this.game.blocks[superIndex[superIndex.length - 1 - i]].destroyBlock();
     }
+
+    this.game.enemies.forEach(function(enemy){
+      if (this.pos[0] - enemy.length > enemy.pos[0] &&
+          this.pos[0] - enemy.length < enemy.pos[0] + enemy.length &&
+          this.pos[1] > enemy.pos[1] &&
+          this.pos[1] < enemy.pos[1] + enemy.length) {
+        enemy.destroyEnemy();
+      }
+
+      if (this.pos[0] + enemy.length > enemy.pos[0] &&
+          this.pos[0] + enemy.length < enemy.pos[0] + enemy.length &&
+          this.pos[1] > enemy.pos[1] &&
+          this.pos[1] < enemy.pos[1] + enemy.length) {
+        enemy.destroyEnemy();
+      }
+
+      if (this.pos[0] > enemy.pos[0] &&
+          this.pos[0] < enemy.pos[0] + enemy.length &&
+          this.pos[1] - enemy.length > enemy.pos[1] &&
+          this.pos[1] - enemy.length < enemy.pos[1] + enemy.length) {
+        enemy.destroyEnemy();
+      }
+      if (this.pos[0] > enemy.pos[0] &&
+          this.pos[0] < enemy.pos[0] + enemy.length &&
+          this.pos[1] + enemy.length > enemy.pos[1] &&
+          this.pos[1] + enemy.length < enemy.pos[1] + enemy.length) {
+        enemy.destroyEnemy();
+      }
+
+    }.bind(this));
 
   };
   Bomb.prototype.drawFlames = function(ctx) {

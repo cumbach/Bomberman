@@ -8,7 +8,7 @@
     this.pos = attributes.pos,
     this.color = Enemy.COLOR;
     this.length = Enemy.LENGTH;
-    this.radius = 25;
+    this.radius = 24;
     this.location = [0, 0];
     this.sprite = new Bomberman.Sprite({img: 'sprites/pinkenemy.png', loc: [this.location], size: [26,25]})
     this.startMoving();
@@ -74,7 +74,6 @@
   };
   Enemy.prototype.notBlocked = function (vel) {
     this.center = [this.pos[0] + 25, this.pos[1] +25]
-    // console.log(this.center)
 
     this.bool = true;
 
@@ -108,27 +107,21 @@
       }
     }.bind(this))
 
-
     return this.bool;
   };
 
+  Enemy.prototype.destroyEnemy = function () {
+    this.game.enemies.splice(this.game.enemies.indexOf(this), 1);
+    // this.location = [303, 106];
 
-
-
-
-
-
-  // Enemy.prototype.destroyEnemy = function () {
-  //   this.location = [303, 106];
-  //
-  //   setTimeout(function(){
-  //     this.location = [327, 106];
-  //   }.bind(this), 300);
-  //
-  //   setTimeout(function(){
-  //     this.game.blocks.splice(this.game.blocks.indexOf(this),1)
-  //   }.bind(this), 600);
-  // };
+    // setTimeout(function(){
+    //   this.location = [327, 106];
+    // }.bind(this), 300);
+    //
+    // setTimeout(function(){
+    //   this.game.blocks.splice(this.game.blocks.indexOf(this),1)
+    // }.bind(this), 600);
+  };
 
   // Bomberman.Util.inherits(Bomberman.Enemy, Bomberman.StaticObject);
 
