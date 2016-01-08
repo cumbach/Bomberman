@@ -40,7 +40,7 @@
     this.enemies = [];
     var pos;
     var block;
-    var enemyCount = 50;
+    var enemyCount = 5;
 
     // barrier = new Bomberman.Barrier({pos: [150,50], game: this});
     // this.barriers.push(barrier);
@@ -56,7 +56,7 @@
 
     for (var x = 0; x < this.xDim; x += blockLength) {
       for (var y = 0; y < this.yDim; y += blockLength) {
-        if (this.enemies.length < enemyCount && Math.random() < 0.09 && (x > 3*blockLength || y > 3*blockLength)) {
+        if (this.enemies.length < enemyCount && Math.random() < 0.10 && (x > 3*blockLength || y > 3*blockLength)) {
           pos = [x, y];
           if (barrierPositions.indexOf(pos.toString()) === -1 && blockPositions.indexOf(pos.toString()) === -1) {
             enemy = new Bomberman.Enemy({ pos: pos, game: this });

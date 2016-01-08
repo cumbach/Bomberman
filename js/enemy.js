@@ -20,12 +20,22 @@
   Enemy.COLOR = "pink";
   Enemy.LENGTH = 50;
 
+
   Enemy.prototype.draw = function (ctx) {
     this.sprite.draw(ctx, this.pos, this.location);
   };
 
   Enemy.prototype.startMoving = function (ctx) {
+    // Couldnt define these above because the game hasnt created barriers yet
+    // var barrierPositions = this.game.barriers.map(function(barrier){
+    //   return barrier.pos.toString();
+    // });
+    // var blockPositions = this.game.blocks.map(function(block){
+    //   return block.pos.toString();
+    // })
+
     this.chooseDir();
+
     setInterval(function(){
       this.move();
     }.bind(this), 25)
@@ -43,8 +53,8 @@
     }
   };
   Enemy.prototype.move = function (ctx) {
-    this.checkNotBlocked(this.vel);
-    if(this.inBoard(this.vel) && !this.blocked) {
+    // this.checkNotBlocked(this.vel);
+    if(this.inBoard(this.vel) && this.notBlocked(this.vel)) {
       this.pos[0] += this.vel[0];
       this.pos[1] += this.vel[1];
     } else {
@@ -62,9 +72,50 @@
       return false;
     }
   };
-  Enemy.prototype.checkNotBlocked = function (vel) {
+  Enemy.prototype.notBlocked = function (vel) {
+    this.center = [this.pos[0] + 25, this.pos[1] +25]
+    // console.log(this.center)
 
-  }
+    this.bool = true;
+
+    this.game.barriers.forEach(function(barrier){
+      if (this.center[0] + this.radius + vel[0] > barrier.pos[0] &&
+          this.center[0] - this.radius + vel[0] < barrier.pos[0] + barrier.length &&
+          this.center[1] + this.radius + vel[1] > barrier.pos[1] &&
+          this.center[1] - this.radius + vel[1] < barrier.pos[1] + barrier.length
+        ) {
+          this.bool = false;
+      }
+    }.bind(this))
+
+    this.game.blocks.forEach(function(block){
+      if (this.center[0] + this.radius + vel[0] > block.pos[0] &&
+          this.center[0] - this.radius + vel[0] < block.pos[0] + block.length &&
+          this.center[1] + this.radius + vel[1] > block.pos[1] &&
+          this.center[1] - this.radius + vel[1] < block.pos[1] + block.length
+        ) {
+          this.bool = false;
+      }
+    }.bind(this))
+
+    this.game.bomber.bombs.forEach(function(bomb){
+      if (this.center[0] + this.radius + vel[0] > bomb.pos[0] - bomb.radius &&
+          this.center[0] - this.radius + vel[0] < bomb.pos[0] + bomb.radius &&
+          this.center[1] + this.radius + vel[1] > bomb.pos[1] - bomb.radius &&
+          this.center[1] - this.radius + vel[1] < bomb.pos[1] + bomb.radius
+        ) {
+          this.bool = false;
+      }
+    }.bind(this))
+
+
+    return this.bool;
+  };
+
+
+
+
+
 
 
   // Enemy.prototype.destroyEnemy = function () {
@@ -78,10 +129,6 @@
   //     this.game.blocks.splice(this.game.blocks.indexOf(this),1)
   //   }.bind(this), 600);
   // };
-
-
-
-
 
   // Bomberman.Util.inherits(Bomberman.Enemy, Bomberman.StaticObject);
 
