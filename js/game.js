@@ -187,7 +187,7 @@
 
     // if (player.piping || player.dying || player.noInput) return; //don't accept input
 
-    if (input.isDown('SHIFT')) {
+    if (input.isDown('SPACE')) {
       bomber.addBomb(this.ctx);
     } else {
       //we need this to handle the timing for how long you hold it

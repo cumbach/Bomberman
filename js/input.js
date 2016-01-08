@@ -8,6 +8,8 @@
         switch(code) {
         case 16:
             key = 'SHIFT'; break;
+        case 32:
+            key = 'SPACE'; break;
         case 37:
             key = 'LEFT'; break;
         case 38:
