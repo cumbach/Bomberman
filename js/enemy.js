@@ -13,6 +13,7 @@
     this.sprite = new Bomberman.Sprite({img: 'sprites/pinkenemy.png', loc: [this.location], size: [26,25]})
     this.startMoving();
     this.blocked = false;
+    this.locationHolder = 0;
 
     // Bomberman.StaticObject.call(this, attributes);
   };
@@ -26,18 +27,11 @@
   };
 
   Enemy.prototype.startMoving = function (ctx) {
-    // Couldnt define these above because the game hasnt created barriers yet
-    // var barrierPositions = this.game.barriers.map(function(barrier){
-    //   return barrier.pos.toString();
-    // });
-    // var blockPositions = this.game.blocks.map(function(block){
-    //   return block.pos.toString();
-    // })
-
     this.chooseDir();
 
     setInterval(function(){
       this.move();
+      this.animate();
     }.bind(this), 25)
   };
   Enemy.prototype.chooseDir = function (ctx) {
@@ -52,9 +46,25 @@
       this.vel = [0,-1]
     }
   };
+  Enemy.prototype.animate = function (ctx) {
+    if(!this.exploded) {
+      this.locationHolder += 1;
+      if (this.locationHolder % 15 ===  0) {
+        this.location[0] += 24;
+      }
+
+      if (this.locationHolder % 45 === 0) {
+        this.locationHolder = 0;
+        this.location[0] = 0
+
+      }
+    }
+  };
   Enemy.prototype.move = function (ctx) {
-    // this.checkNotBlocked(this.vel);
     if(this.inBoard(this.vel) && this.notBlocked(this.vel)) {
+      if (this.exploded) {
+        this.vel = [0,0];
+      }
       this.pos[0] += this.vel[0];
       this.pos[1] += this.vel[1];
     } else {
@@ -111,16 +121,12 @@
   };
 
   Enemy.prototype.destroyEnemy = function () {
-    this.game.enemies.splice(this.game.enemies.indexOf(this), 1);
-    // this.location = [303, 106];
+    this.location = [72, 0];
+    this.exploded = true;
 
-    // setTimeout(function(){
-    //   this.location = [327, 106];
-    // }.bind(this), 300);
-    //
-    // setTimeout(function(){
-    //   this.game.blocks.splice(this.game.blocks.indexOf(this),1)
-    // }.bind(this), 600);
+    setTimeout(function(){
+      this.game.enemies.splice(this.game.enemies.indexOf(this), 1);
+    }.bind(this), 600);
   };
 
   // Bomberman.Util.inherits(Bomberman.Enemy, Bomberman.StaticObject);
