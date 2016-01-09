@@ -62,7 +62,7 @@
   };
   Enemy.prototype.move = function (ctx) {
     if(this.inBoard(this.vel) && this.notBlocked(this.vel)) {
-      if (this.exploded) {
+      if (this.exploded || !this.game.bomber.movable) {
         this.vel = [0,0];
       }
       this.pos[0] += this.vel[0];

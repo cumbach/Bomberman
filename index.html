@@ -1,13 +1,17 @@
 <html>
   <head>
     <title>Bomberman</title>
+    <link rel='stylesheet' href='style.css' />
   </head>
 
   <body>
-    <canvas width="650" height="550"></canvas>
+    <div class="canvas-div">
+      <canvas width="650" height="550"></canvas>
+    </div>
+    <div class="instructions"></div>
+    <div class="welcome"></div>
 
     <script type="application/javascript" src="js/input.js"></script>
-
     <script type="application/javascript" src="js/resources.js"></script>
     <script type="application/javascript" src="js/sprite.js"></script>
     <script type="application/javascript" src="js/utils.js"></script>
@@ -18,7 +22,6 @@
     <script type="application/javascript" src="js/enemy.js"></script>
     <script type="application/javascript" src="js/game.js"></script>
     <script type="application/javascript" src="js/gameView.js"></script>
-
     <script type="application/javascript">
         var canvasEl = document.getElementsByTagName("canvas")[0];
         new Bomberman.GameView(

@@ -13,6 +13,8 @@
     this.alive = true,
     this.ctx = attributes.game.ctx,
     this.location = [228, 3],
+    this.movable = true,
+    this.count = 0;
     this.sprite = new Bomberman.Sprite({img: 'sprites/bomberman.png', loc: [this.location], size: [26,33], area: [50,46]})
   };
 
@@ -44,8 +46,17 @@
 
   };
   Bomber.prototype.destroyBomber = function () {
-
     this.location = [351, 40];
+    this.movable = false;
+
+    if (this.count === 0) {
+      var gameover = document.createElement('h2');
+      gameover.innerHTML = 'GAME OVER press shift to play again';
+      var instructions = document.getElementsByClassName('instructions')[0];
+      instructions.appendChild(gameover);
+      this.count += 1;
+    }
+
 
     setTimeout(function(){
       this.alive = false;
@@ -105,20 +116,31 @@
       }
     }.bind(this))
 
+    this.game.enemies.forEach(function(enemy){
+      if (this.pos[0] + this.radius + vel[0] > enemy.pos[0] + 10 &&
+          this.pos[0] - this.radius + vel[0] < enemy.pos[0] + enemy.length - 10 &&
+          this.pos[1] + this.radius + vel[1] > enemy.pos[1] + 10 &&
+          this.pos[1] - this.radius + vel[1] < enemy.pos[1] + enemy.length - 10) {
+        this.destroyBomber();
+      }
+    }.bind(this))
+
     // animate bomber
-    if (vel[1] > 0) {
-      this.moveAvatarDown();
-    } else if (vel[1] < 0){
-      this.moveAvatarUp();
-    } else if (vel[0] < 0) {
-      this.moveAvatarLeft();
-    } else if (vel[0] > 0) {
-      this.moveAvatarRight();
-    } else {
-      // this.location = [228, 3];
+    if (this.movable) {
+      if (vel[1] > 0) {
+        this.moveAvatarDown();
+      } else if (vel[1] < 0){
+        this.moveAvatarUp();
+      } else if (vel[0] < 0) {
+        this.moveAvatarLeft();
+      } else if (vel[0] > 0) {
+        this.moveAvatarRight();
+      } else {
+        // this.location = [228, 3];
+      }
     }
 
-    if (this.inBoard(vel) && !blocked) {
+    if (this.inBoard(vel) && !blocked && this.movable) {
       this.pos[0] += vel[0];
       this.pos[1] += vel[1];
     }
