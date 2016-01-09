@@ -21,21 +21,30 @@ canvas {
 }
 
 .welcome {
-  margin-top: -350px;
-  position: fixed;
-  width: 100%;
+  left: 10px;
+  bottom: 590px;
+  margin: 0 auto;
+  position: relative;
+  width: 650px;
   background: black;
 }
 
-.hello {
-  background: black;
+IMG {
+  width: 650px;
+  height: 550px;
 }
+
+/*.hello {
+  background: black;
+}*/
 
 h2 {
   width: 168px;
+  padding: 23px;
   margin: auto;
+  border-radius: 10px;
   background: black;
-  color: white;
+  color: rgba(700,200,0,1);
   text-align: center;
 }
 
@@ -132,11 +141,4 @@ h2 {
 
 .new-game:hover {
   background: #ddd;
-}
-
-IMG {
-  width: 90px;
-  height: 60px;
-  margin-left: 30px;
-  margin-top: 40px;
 }
