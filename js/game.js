@@ -41,7 +41,7 @@
     this.enemies = [];
     var pos;
     var block;
-    var enemyCount = 5;
+    var enemyCount = 8;
 
     // barrier = new Bomberman.Barrier({pos: [150,50], game: this});
     // this.barriers.push(barrier);
