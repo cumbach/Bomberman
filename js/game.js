@@ -79,7 +79,7 @@
 
     for (var x = 0; x < this.xDim; x += blockLength) {
       for (var y = 0; y < this.yDim; y += blockLength) {
-        if (Math.random() < 0.14 && (x > 3*blockLength || y > blockLength)) {
+        if (Math.random() < 0.18 && (x > 3*blockLength || y > blockLength)) {
           pos = [x, y];
           block = new Bomberman.Block({ pos: pos, game: this });
           this.blocks.push(block);
