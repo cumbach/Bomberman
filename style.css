@@ -1,16 +1,20 @@
+html {
+  height: 99%;
+  overflow: hidden;
+}
+
 canvas {
   border: 10px solid rgba(200,200,200,.5);
   background: black;
   float: left;
-  margin-top: 150px;
+  margin: 70px auto 0px auto;
 
 }
 
 .canvas-div {
   width: 650px;
-  height: 750px;
-  margin-top: 100px;
-  margin: auto;
+  height: 550px;
+  margin: -7% auto 0px auto
 }
 
 .instructions {
@@ -22,21 +26,22 @@ canvas {
 
 .welcome {
   left: 10px;
+  top: -10px;
   bottom: 590px;
   margin: 0 auto;
   position: relative;
   width: 650px;
-  background: black;
+  height: 440px;
 }
 
 IMG {
   width: 650px;
   height: 550px;
+  position: relative;
+  top: -550px;
+  background: black;
 }
 
-/*.hello {
-  background: black;
-}*/
 
 h2 {
   width: 168px;
