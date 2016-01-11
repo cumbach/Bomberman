@@ -1,1 +1,1 @@
-[Bomberman - Live Link] (https://www.cumbach.github.io/Bomberman/)
+[Bomberman - Live Link] (https://cumbach.github.io/Bomberman/)
