@@ -3,6 +3,11 @@ html {
   overflow: hidden;
 }
 
+body {
+  margin-top: 3%;
+  padding: 10px;
+}
+
 canvas {
   border: 10px solid rgba(200,200,200,.5);
   background: black;
