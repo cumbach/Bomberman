@@ -126,6 +126,9 @@
 
     setTimeout(function(){
       this.game.enemies.splice(this.game.enemies.indexOf(this), 1);
+      if (this.game.enemies.length === 0) {
+        this.game.bomber.destroyBomber();
+      }
     }.bind(this), 600);
   };
 

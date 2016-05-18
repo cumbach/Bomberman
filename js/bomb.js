@@ -149,7 +149,6 @@
       }
     }.bind(this));
 
-
     bomberPos = this.game.bomber.pos.slice(0);
     bomberPos[0] -= 23;
     bomberPos[1] -= 23;

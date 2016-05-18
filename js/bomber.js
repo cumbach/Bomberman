@@ -50,11 +50,19 @@
     this.movable = false;
 
     if (this.count === 0) {
-      var gameover = document.createElement('h2');
-      gameover.innerHTML = 'GAME OVER press shift to play again';
-      var instructions = document.getElementsByClassName('instructions')[0];
-      instructions.appendChild(gameover);
-      this.count += 1;
+      if (this.game.enemies.length === 0) {
+        var gamewon = document.createElement('h2');
+        gamewon.innerHTML = 'Congratulations, You Won! Press shift to play again';
+        var instructions = document.getElementsByClassName('instructions')[0];
+        instructions.appendChild(gamewon);
+        this.count += 1;
+      } else {
+        var gameover = document.createElement('h2');
+        gameover.innerHTML = 'GAME OVER press shift to play again';
+        var instructions = document.getElementsByClassName('instructions')[0];
+        instructions.appendChild(gameover);
+        this.count += 1;
+      }
     }
 
 
