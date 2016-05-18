@@ -255,6 +255,10 @@
       }.bind(this), 2200);
 
       setTimeout(function(){
+        bomb.explode(this.ctx);
+      }.bind(this), 2600);
+
+      setTimeout(function(){
         this.bombs.shift();
       }.bind(this), 2700);
 
